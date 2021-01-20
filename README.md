@@ -1,6 +1,31 @@
 # Hierarchy Storage System for Convolution Operation
 
 ## AXI-4 Protocol Learning
+
+- AXI-4 handshaking
+  - 1. VALID before READY handshake
+  - 2. READY before VALID handshake
+  - 3. READY and VALID arrive at the same time handshake
+
+- AXI-4 Transaction
+  - 1. Concept of Burst
+  - 2. Burst Type
+  - 3. Burst Size
+  - 4. Burst Length
+
+- AXI-4 Architecture
+  - 1. Write Transaction & Read Transaction
+  - 2. Signals
+
+Following blogs gives me great help learning AXI-4.
+
+
+[深入 AXI4 总线（一）握手机制](https://zhuanlan.zhihu.com/p/44766356)
+
+[深入 AXI4 总线（二）架构](https://zhuanlan.zhihu.com/p/45122977)
+
+[深入 AXI4 总线（三）传输事务结构](https://zhuanlan.zhihu.com/p/46538028)
+
 ###  AXI-4 Handshaking
 
 According to the AXI handshaking rule, device that sends the address and control command actively is called **Master**, device that receives the address and control command passively is called **Slave**. When handshaking is building Master will set the **``VALID``** signal to high to show that Master device is ready to send the data, Slave will set the **``READY``** signal to high to show that slave device is ready to receive data. At each the posedge of the **``ACLK``**  both device will check the status of these two signals. And only when both VALID and READY are set to high will the information switch begin.
@@ -155,7 +180,7 @@ When narrow burst happened, not all the bits in the channel are useful. In order
 assign M_AXI_WSTRB = {(C_M_AXI_DATA_WIDTH/8){1'b1}};
 ```  
 
-#### 3. Burst Length
+#### 4. Burst Length
 
 In a Transaction, if the burst length is 0 then it seems to mean that there will be no Transfer happen. In order to prevent this status from causing any misunderstand, ARM defines the actual burst length as the value of ``AxLEN`` plus 1.
 
